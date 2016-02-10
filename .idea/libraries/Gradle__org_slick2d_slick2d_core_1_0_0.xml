@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.slick2d:slick2d-core:1.0.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.slick2d/slick2d-core/1.0.0/6c5a93f94c4a50f57e14040426054d50ca6ac9a7/slick2d-core-1.0.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.slick2d/slick2d-core/1.0.0/48f794c30f3e8a834791aa0c16129d215cc9bdc8/slick2d-core-1.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

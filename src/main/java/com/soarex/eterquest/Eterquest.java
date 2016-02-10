@@ -1,6 +1,5 @@
 package com.soarex.eterquest;
 
-import com.soarex.eterquest.util.ImageUtil;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
@@ -26,9 +25,9 @@ public class Eterquest {
             Display.setDisplayMode(new DisplayMode(DEFAULT_WIDTH, DEFAULT_HEIGHT));
             Display.setTitle(TITLE);
             Display.setIcon(new ByteBuffer[]{
-                    ImageUtil.loadIcon(Eterquest.class.getResourceAsStream("/icon/icon16.png")),
-                    ImageUtil.loadIcon(Eterquest.class.getResourceAsStream("/icon/icon32.png")),
-                    ImageUtil.loadIcon(Eterquest.class.getResourceAsStream("/icon/icon128.png")),
+                    Util.loadIcon(Eterquest.class.getResourceAsStream("/icon/icon16.png")),
+                    Util.loadIcon(Eterquest.class.getResourceAsStream("/icon/icon32.png")),
+                    Util.loadIcon(Eterquest.class.getResourceAsStream("/icon/icon128.png")),
             });
             Display.create(new PixelFormat().withDepthBits(24));
         } catch (LWJGLException e) {

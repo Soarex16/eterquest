@@ -1,0 +1,27 @@
+#version 330
+
+layout (location = 0) in vec3 vertex;
+layout (location = 1) in vec2 _texCoord;
+
+out vec2 texCoord;
+
+uniform mat4 transformation;
+uniform vec4 projection = vec4(1.0, 1.0, 1.0, 1.0);
+
+vec3 project(vec3 v){
+	float z = v.z;
+	float x = v.x;
+	float y = v.y;
+	if(z < 0){
+		x *= -1;
+		y *= -1;
+	}
+	return vec3(x / (z * projection.x), y / (z * projection.y), -1.0 + (z + projection.z) / projection.w);
+}
+
+void main()
+{	
+	vec3 ortho = (transformation * vec4(vertex, 1.0)).xyz;
+	gl_Position = vec4(project(ortho), 1.0);
+	texCoord = _texCoord;
+}

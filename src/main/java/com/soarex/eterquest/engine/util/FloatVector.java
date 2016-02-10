@@ -3,7 +3,7 @@ package com.soarex.eterquest.engine.util;
 /**
  * Created by shumaf on 10.02.16.
  */
-public class FloatVector extends Vector<Float>{
+public class FloatVector extends Vector<Float> {
 
     public FloatVector(Float... elements){
         super(elements);

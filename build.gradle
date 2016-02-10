@@ -6,7 +6,7 @@ apply plugin : 'application'
 
 sourceCompatibility = 1.8
 
-mainClassName = 'com.soarex.eterquest.Eterquest'
+mainClassName = 'com.soarex.eterquest.engine.Game'
 
 configurations {
     compile.extendsFrom exported

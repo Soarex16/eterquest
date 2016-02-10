@@ -1,11 +1,11 @@
 package com.soarex.eterquest.engine.util;
 
-import static com.soarex.eterquest.engine.util.MathUtils.*;
+import static com.soarex.eterquest.engine.util.MiscUtil.*;
 
 /**
  * Created by shumaf on 10.02.16.
  */
-public class FloatMatrix extends Matrix<Float>{
+public class FloatMatrix extends Matrix<Float> {
 
     public FloatMatrix(Float[][] matrix){
         super(matrix);

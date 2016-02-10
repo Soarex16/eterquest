@@ -3,7 +3,7 @@ package com.soarex.eterquest.engine.util;
 /**
  * Created by shumaf on 10.02.16.
  */
-public class Vector<T>{
+public class Vector<T> {
 
     protected T[] elements;
     protected int size;

@@ -1,6 +1,9 @@
 package com.soarex.eterquest.engine.util;
 
-public class Matrix<T>{
+/**
+ * Created by shumaf on 10.02.16.
+ */
+public class Matrix<T> {
 
 	private T[][] matrix;
 	

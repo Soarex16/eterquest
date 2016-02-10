@@ -1,4 +1,4 @@
-package com.soarex.eterquest.util;
+package com.soarex.eterquest;
 
 import org.newdawn.slick.opengl.PNGDecoder;
 
@@ -9,7 +9,7 @@ import java.nio.ByteBuffer;
 /**
  * Created by shumaf on 10.02.16.
  */
-public class ImageUtil {
+public class Util {
 
     public static ByteBuffer loadIcon(InputStream is) throws IOException {
         try {

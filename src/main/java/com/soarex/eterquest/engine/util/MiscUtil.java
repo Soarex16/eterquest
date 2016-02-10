@@ -12,7 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * Created by shumaf on 10.02.16.
  */
-public class MathUtils {
+public class MiscUtil {
 
     public static final byte NORTH = 0;
     public static final byte SOUTH = 1;
@@ -145,3 +145,4 @@ public class MathUtils {
         return Double.parseDouble(DECIMAL_FORMAT.format(d));
     }
 }
+

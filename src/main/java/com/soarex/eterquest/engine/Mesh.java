@@ -23,18 +23,18 @@ public class Mesh {
     private int iboSize;
     private boolean wireframe;
 
-    public Mesh(){
+    public Mesh() {
         vboPointer = glGenBuffers();
         iboPointer = glGenBuffers();
         iboSize = 0;
     }
 
-    public Mesh(String dir){
+    public Mesh(String dir) {
         this();
         load(dir);
     }
 
-    public void addVertices(int[] indices, Vertex... vertices){
+    public void addVertices(int[] indices, Vertex... vertices) {
         iboSize = indices.length;
         glBindBuffer(GL_ARRAY_BUFFER, vboPointer);
         glBufferData(GL_ARRAY_BUFFER, GraphicsUtil.toBuffer(vertices), GL_STATIC_DRAW);
@@ -42,19 +42,19 @@ public class Mesh {
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, GraphicsUtil.toBuffer(indices), GL_STATIC_DRAW);
     }
 
-    public boolean isWireframe(){
+    public boolean isWireframe() {
         return wireframe;
     }
 
-    public void setWireframe(boolean wireframe){
+    public void setWireframe(boolean wireframe) {
         this.wireframe = wireframe;
     }
 
-    public void render(){
+    public void render() {
         glEnableVertexAttribArray(0);
         glEnableVertexAttribArray(1);
 
-        if(wireframe)
+        if (wireframe)
             glPolygonMode(GL_FRONT_AND_BACK, GL_LINE );
         else
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -70,23 +70,23 @@ public class Mesh {
         glDisableVertexAttribArray(1);
     }
 
-    private void load(String dir){
+    private void load(String dir) {
         List<Vertex> vertices = new ArrayList<Vertex>();
         List<Integer> indices = new ArrayList<Integer>();
         try{
             File file = new File(dir);
             BufferedReader in = new BufferedReader(new FileReader(file));
             String line = in.readLine();
-            while(line != null){
+            while (line != null) {
                 String[] tokens = MiscUtil.tokenize(line, " ");
-                if(tokens.length != 0){
-                    if(tokens[0].equals("v")){
+                if (tokens.length != 0) {
+                    if (tokens[0].equals("v")) {
                         float x = Float.parseFloat(tokens[1]);
                         float y = Float.parseFloat(tokens[2]);
                         float z = Float.parseFloat(tokens[3]);
                         vertices.add(new Vertex(x, y, z));
                     }else
-                    if(tokens[0].equals("f")){
+                    if (tokens[0].equals("f")) {
                         indices.add(Integer.parseInt(tokens[1]) - 1);
                         indices.add(Integer.parseInt(tokens[2]) - 1);
                         indices.add(Integer.parseInt(tokens[3]) - 1);
@@ -95,7 +95,7 @@ public class Mesh {
                 line = in.readLine();
             }
             in.close();
-        }catch(Exception e){
+        }catch(Exception e) {
             e.printStackTrace();
         }
         addVertices(GraphicsUtil.toArray(indices), vertices.toArray(new Vertex[vertices.size()]));

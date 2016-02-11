@@ -19,17 +19,17 @@ public class SoundUtil {
     static{
         try{
             fromLocal();
-        }catch(Exception e){
+        }catch(Exception e) {
             e.printStackTrace();
         }
 
         file = null;
-        MiscUtil.thread(new Runnable(){
-            public void run(){
-                while(true){
-                    if(file != null){
+        MiscUtil.thread(new Runnable() {
+            public void run() {
+                while (true) {
+                    if (file != null) {
                         try{
-                            if(!loadedSounds.containsKey(file)){
+                            if (!loadedSounds.containsKey(file)) {
                                 URL url = new URL(prefix + file);
                                 Clip clip = AudioSystem.getClip();
                                 AudioInputStream in = AudioSystem.getAudioInputStream(url);
@@ -38,11 +38,11 @@ public class SoundUtil {
                                 loadedSounds.put(file, clip);
                             }
                             Clip clip = loadedSounds.get(file);
-                            if(clip.isActive())
+                            if (clip.isActive())
                                 clip.stop();
                             clip.setFramePosition(0);
                             clip.start();
-                        }catch(Exception e){
+                        }catch(Exception e) {
                             System.err.println("Path: " + prefix + file);
                             e.printStackTrace();
                         }
@@ -54,19 +54,19 @@ public class SoundUtil {
         });
     }
 
-    public static void fromLocal(){
+    public static void fromLocal() {
         fromURL("file:///" + System.getProperty("user.dir").replace("\\", "/"));
     }
 
-    public static void fromLocalSounds(){
+    public static void fromLocalSounds() {
         fromURL("file:///" + System.getProperty("user.dir").replace("\\", "/") + "/sounds/");
     }
 
-    public static void fromURL(String url){
+    public static void fromURL(String url) {
         prefix = url + (url.endsWith("/") ? "" : "/");
     }
 
-    public static void play(String file){
+    public static void play(String file) {
         SoundUtil.file = file;
     }
 }

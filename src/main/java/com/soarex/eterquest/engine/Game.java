@@ -24,17 +24,17 @@ public class Game {
     public static final int DEFAULT_WIDTH = 800;
     public static final int DEFAULT_HEIGHT = 600;
     public static final String TITLE = "Game";
-    public static final float FIELD_OF_VIEW = 70f * ((float)Math.PI / 180f);
-    public static final FloatVector X_AXIS = new FloatVector(1f, 0f, 0f);
-    public static final FloatVector Y_AXIS = new FloatVector(0f, 1f, 0f);
-    public static final FloatVector Z_AXIS = new FloatVector(0f, 0f, 1f);
-    public static final FloatVector DEFAULT_CLEAR_COLOR = new FloatVector(0.5294f, 0.8078f, 0.9216f);
-    public static final float NEAR_CLIP = 0f;
-    public static final float FAR_CLIP = 1000f;
+    public static final float FIELD_OF_VIEW = 70F * ((float)Math.PI / 180F);
+    public static final FloatVector X_AXIS = new FloatVector(1F, 0F, 0F);
+    public static final FloatVector Y_AXIS = new FloatVector(0F, 1F, 0F);
+    public static final FloatVector Z_AXIS = new FloatVector(0F, 0F, 1F);
+    public static final FloatVector DEFAULT_CLEAR_COLOR = new FloatVector(0.5294F, 0.8078F, 0.9216F);
+    public static final float NEAR_CLIP = 0F;
+    public static final float FAR_CLIP = 1000F;
     public static final int MAX_FPS = 1000;
-    public static final long FRAME_TIME = (long)(1d / (double)MAX_FPS * 1000000000d);
-    public static final float MOVEMENT_SPEED = .025f;
-    public static final float ROTATION_SPEED = .002f;
+    public static final long FRAME_TIME = (long)(1D / (double)MAX_FPS * 1000000000D);
+    public static final float MOVEMENT_SPEED = 0.025F;
+    public static final float ROTATION_SPEED = 0.002F;
 
     private Set<Object3D> objects;
 
@@ -46,18 +46,18 @@ public class Game {
     private static FloatVector clearColor;
     private static FloatVector ambientLight;
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         new Game();
     }
 
-    public Game(){
+    public Game() {
         initGL();
         initGame();
         loop();
         close();
     }
 
-    private void initGL(){
+    private void initGL() {
         Display.setTitle(TITLE);
         try{
             width = DEFAULT_WIDTH;
@@ -67,11 +67,11 @@ public class Game {
             Display.create();
             Keyboard.create();
             Mouse.create();
-        } catch(LWJGLException e){
+        } catch(LWJGLException e) {
             e.printStackTrace();
         }
-        setClearColor(0f, 0f, 0f);
-        setAmbientLight(1f, 1f, 1f);
+        setClearColor(0F, 0F, 0F);
+        setAmbientLight(1F, 1F, 1F);
         glFrontFace(GL_CW);
         glCullFace(GL_BACK);
         glEnable(GL_CULL_FACE);
@@ -81,61 +81,61 @@ public class Game {
         calculateProjection();
     }
 
-    private void initGame(){
+    private void initGame() {
         objects = new HashSet<Object3D>();
-        for(float i = 0; i < 2 * Math.PI - .1f; i+=(2 * Math.PI) / 18f){
+        for (float i = 0; i < 2 * Math.PI - 0.1F; i+=(2 * Math.PI) / 18F) {
             Object3D o = new Object3D("models/cube.obj");
             o.setMaterial(new Material(MiscUtil.randomColor()));
             o.setTranslation((float)Math.cos(i) * 20, 0, (float)Math.sin(i) * 20);
-            o.setScale(.6f, .6f, .6f);
+            o.setScale(0.6F, 0.6F, 0.6F);
             objects.add(o);
         }
     }
 
-    public static void setClearColor(FloatVector color){
+    public static void setClearColor(FloatVector color) {
         clearColor = color;
-        glClearColor(color.getX(), color.getY(), color.getZ(), 1f);
+        glClearColor(color.getX(), color.getY(), color.getZ(), 1F);
     }
 
-    public static void setClearColor(float red, float green, float blue){
+    public static void setClearColor(float red, float green, float blue) {
         setClearColor(new FloatVector(red, green, blue));
     }
 
-    public static void setClearColor(Color color){
+    public static void setClearColor(Color color) {
         setClearColor(GraphicsUtil.toVector(color));
     }
 
-    public static FloatVector getClearColor(){
+    public static FloatVector getClearColor() {
         return clearColor;
     }
 
-    public static FloatVector getAmbientLight(){
+    public static FloatVector getAmbientLight() {
         return ambientLight;
     }
 
-    public static void setAmbientLight(FloatVector ambientLight){
+    public static void setAmbientLight(FloatVector ambientLight) {
         Game.ambientLight = ambientLight;
     }
 
-    public static void setAmbientLight(float r, float g, float b){
+    public static void setAmbientLight(float r, float g, float b) {
         setAmbientLight(new FloatVector(r, g, b));
     }
 
-    private void loop(){
+    private void loop() {
         long lastFrame = 0;
         long lag = 0;
-        while(true){
+        while (true) {
             long startTime = MiscUtil.time();
             lag += lastFrame;
             boolean render = false;
-            while(lag > FRAME_TIME){
+            while (lag > FRAME_TIME) {
                 render = true;
                 lag -= FRAME_TIME;
-                if(Display.isCloseRequested())
+                if (Display.isCloseRequested())
                     return;
                 update();
             }
-            if(render)
+            if (render)
                 render();
             else
                 MiscUtil.sleep(1);
@@ -143,77 +143,78 @@ public class Game {
         }
     }
 
-    private void update(){
+    private void update() {
         Input.update();
         updateMovement();
         updateRotation();
-        for(Object3D object : objects){
-            object.rotate(0.001f, 0.001f, 0.001f);
+        // FIXME: 11.02.16 if I delete next 3 lines, camera not move
+        for (Object3D object : objects) {
+            object.rotate(0.001F, 0.001F, 0.001F);
         }
     }
 
-    private void updateMovement(){
-        if(Input.isKeyDown(Keyboard.KEY_W))
-            camera.move(0f, 0f, MOVEMENT_SPEED);
-        if(Input.isKeyDown(Keyboard.KEY_S))
-            camera.move(0f, 0f, -MOVEMENT_SPEED);
-        if(Input.isKeyDown(Keyboard.KEY_A))
-            camera.move(-MOVEMENT_SPEED, 0f, 0f);
-        if(Input.isKeyDown(Keyboard.KEY_D))
-            camera.move(MOVEMENT_SPEED, 0f, 0f);
-        if(Input.isKeyDown(Keyboard.KEY_SPACE))
-            camera.move(0f, MOVEMENT_SPEED, 0f);
-        if(Input.isKeyDown(Keyboard.KEY_LSHIFT))
-            camera.move(0f, -MOVEMENT_SPEED, 0f);
+    private void updateMovement() {
+        if (Input.isKeyDown(Keyboard.KEY_W))
+            camera.move(0F, 0F, MOVEMENT_SPEED);
+        if (Input.isKeyDown(Keyboard.KEY_S))
+            camera.move(0F, 0F, -MOVEMENT_SPEED);
+        if (Input.isKeyDown(Keyboard.KEY_A))
+            camera.move(-MOVEMENT_SPEED, 0F, 0F);
+        if (Input.isKeyDown(Keyboard.KEY_D))
+            camera.move(MOVEMENT_SPEED, 0F, 0F);
+        if (Input.isKeyDown(Keyboard.KEY_SPACE))
+            camera.move(0F, MOVEMENT_SPEED, 0F);
+        if (Input.isKeyDown(Keyboard.KEY_LSHIFT))
+            camera.move(0F, -MOVEMENT_SPEED, 0F);
     }
 
-    private void updateRotation(){
-        if(Input.isKeyDown(Keyboard.KEY_UP))
-            camera.rotate(-ROTATION_SPEED, 0f, 0f);
-        if(Input.isKeyDown(Keyboard.KEY_DOWN))
-            camera.rotate(ROTATION_SPEED, 0f, 0f);
-        if(Input.isKeyDown(Keyboard.KEY_LEFT))
-            camera.rotate(0f, -ROTATION_SPEED, 0f);
-        if(Input.isKeyDown(Keyboard.KEY_RIGHT))
-            camera.rotate(0f, ROTATION_SPEED, 0f);
+    private void updateRotation() {
+        if (Input.isKeyDown(Keyboard.KEY_UP))
+            camera.rotate(-ROTATION_SPEED, 0F, 0F);
+        if (Input.isKeyDown(Keyboard.KEY_DOWN))
+            camera.rotate(ROTATION_SPEED, 0F, 0F);
+        if (Input.isKeyDown(Keyboard.KEY_LEFT))
+            camera.rotate(0F, -ROTATION_SPEED, 0F);
+        if (Input.isKeyDown(Keyboard.KEY_RIGHT))
+            camera.rotate(0F, ROTATION_SPEED, 0F);
     }
 
-    private void render(){
+    private void render() {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        for(Object3D object : objects)
+        for (Object3D object : objects)
             object.render();
         Display.update();
     }
 
-    public static Camera getCamera(){
+    public static Camera getCamera() {
         return camera;
     }
 
-    public static float getAspectRatio(){
+    public static float getAspectRatio() {
         return aspectRatio;
     }
 
-    public static int getWidth(){
+    public static int getWidth() {
         return width;
     }
 
-    public static int getHeight(){
+    public static int getHeight() {
         return height;
     }
 
-    private void calculateProjection(){
-        float x = ((float)Math.tan(Game.FIELD_OF_VIEW / 2f) * Game.getAspectRatio());
-        float y = ((float)Math.tan(Game.FIELD_OF_VIEW / 2f));
+    private void calculateProjection() {
+        float x = ((float)Math.tan(Game.FIELD_OF_VIEW / 2F) * Game.getAspectRatio());
+        float y = ((float)Math.tan(Game.FIELD_OF_VIEW / 2F));
         float z = -Game.NEAR_CLIP;
         float depth = Game.FAR_CLIP - Game.NEAR_CLIP;
         projection = new FloatVector(x, y, z, depth);
     }
 
-    public static FloatVector getProjection(){
+    public static FloatVector getProjection() {
         return projection;
     }
 
-    private void close(){
+    private void close() {
         Display.destroy();
         Keyboard.destroy();
         Mouse.destroy();

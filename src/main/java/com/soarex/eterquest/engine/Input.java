@@ -17,23 +17,23 @@ public class Input {
     private static Set<Integer> pressedMouse = new HashSet<Integer>();
     private static Set<Integer> prevDownMouse = new HashSet<Integer>();
 
-    public static void update(){
+    public static void update() {
         pressedKeys.clear();
         pressedMouse.clear();
         Set<Integer> downKeys = new HashSet<Integer>();
         Set<Integer> downMouse = new HashSet<Integer>();
-        for(int keyCode = 0; keyCode < 256; keyCode++){
-            if(isKeyDown(keyCode)){
+        for (int keyCode = 0; keyCode < 256; keyCode++) {
+            if (isKeyDown(keyCode)) {
                 downKeys.add(keyCode);
-                if(!prevDownKeys.contains(keyCode)){
+                if (!prevDownKeys.contains(keyCode)) {
                     pressedKeys.add(keyCode);
                 }
             }
         }
-        for(int button = 0; button < 3; button++){
-            if(isMouseDown(button)){
+        for (int button = 0; button < 3; button++) {
+            if (isMouseDown(button)) {
                 downMouse.add(button);
-                if(!prevDownMouse.contains(button)){
+                if (!prevDownMouse.contains(button)) {
                     pressedMouse.add(button);
                 }
             }
@@ -42,35 +42,35 @@ public class Input {
         prevDownMouse = downMouse;
     }
 
-    public static boolean isKeyDown(int keyCode){
+    public static boolean isKeyDown(int keyCode) {
         return Keyboard.isKeyDown(keyCode);
     }
 
-    public static boolean isKeyPressed(int keyCode){
+    public static boolean isKeyPressed(int keyCode) {
         return pressedKeys.contains(keyCode);
     }
 
-    public static boolean isMouseDown(int button){
+    public static boolean isMouseDown(int button) {
         return Mouse.isButtonDown(button);
     }
 
-    public static boolean isMousePressed(int button){
+    public static boolean isMousePressed(int button) {
         return pressedMouse.contains(button);
     }
 
-    public static Vector<Integer> getMousePosition(){
+    public static Vector<Integer> getMousePosition() {
         return new Vector<Integer>(Mouse.getX(), Mouse.getY());
     }
 
-    public static void setMousePosition(int x, int y){
+    public static void setMousePosition(int x, int y) {
         Mouse.setCursorPosition(x, y);
     }
 
-    public static void setMouseHidden(boolean hidden){
+    public static void setMouseHidden(boolean hidden) {
         Mouse.setGrabbed(hidden);
     }
 
-    public static boolean isMouseHidden(){
+    public static boolean isMouseHidden() {
         return Mouse.isGrabbed();
     }
 }

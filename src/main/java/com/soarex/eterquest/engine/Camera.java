@@ -15,40 +15,40 @@ public class Camera {
     private FloatMatrix translationMatrix;
     private FloatMatrix rotationMatrix;
 
-    public Camera(){
-        position = new FloatVector(0f, 0f, 0f);
+    public Camera() {
+        position = new FloatVector(0F, 0F, 0F);
         translationMatrix = FloatMatrix.identity(4);
         rotationMatrix = FloatMatrix.identity(4);
         forward = Z_AXIS;
         up = Y_AXIS;
     }
 
-    private void rotateX(float pitch){
+    private void rotateX(float pitch) {
         FloatVector right = getRight();
         forward = forward.rotate(pitch, right).toUnitVector();
         up = forward.cross(right).toUnitVector();
     }
 
-    private void rotateY(float yaw){
+    private void rotateY(float yaw) {
         forward = forward.rotate(yaw, up).toUnitVector();
     }
 
-    private void rotateZ(float roll){
+    private void rotateZ(float roll) {
         up = up.rotate(roll, forward).toUnitVector();
     }
 
-    public void rotate(float pitch, float yaw, float roll){
+    public void rotate(float pitch, float yaw, float roll) {
         rotateX(pitch);
         rotateY(yaw);
         rotateZ(roll);
         calculateRotationMatrix();
     }
 
-    public FloatMatrix getRotationMatrix(){
+    public FloatMatrix getRotationMatrix() {
         return rotationMatrix;
     }
 
-    private void calculateRotationMatrix(){
+    private void calculateRotationMatrix() {
         FloatMatrix m = FloatMatrix.identity(4);
         FloatVector right = getRight();
         m.set(0, 0, right.getX());	m.set(1, 0, right.getY());	m.set(2, 0, right.getZ());
@@ -57,11 +57,11 @@ public class Camera {
         rotationMatrix = m;
     }
 
-    public FloatMatrix getTranslationMatrix(){
+    public FloatMatrix getTranslationMatrix() {
         return translationMatrix;
     }
 
-    private void calculateTranslationMatrix(){
+    private void calculateTranslationMatrix() {
         FloatMatrix m = FloatMatrix.identity(4);
         m.set(3, 0, -position.getX());
         m.set(3, 1, -position.getY());
@@ -69,45 +69,45 @@ public class Camera {
         translationMatrix = m;
     }
 
-    public FloatVector getRight(){
+    public FloatVector getRight() {
         return up.cross(forward).toUnitVector();
     }
 
-    public FloatVector getLeft(){
+    public FloatVector getLeft() {
         return forward.cross(up).toUnitVector();
     }
 
-    public FloatVector getUp(){
+    public FloatVector getUp() {
         return up;
     }
 
-    public FloatVector getDown(){
-        return up.multiply(-1f);
+    public FloatVector getDown() {
+        return up.multiply(-1F);
     }
 
-    public FloatVector getForward(){
+    public FloatVector getForward() {
         return forward;
     }
 
-    public FloatVector getBackward(){
-        return forward.multiply(-1f);
+    public FloatVector getBackward() {
+        return forward.multiply(-1F);
     }
 
-    public FloatVector getPosition(){
+    public FloatVector getPosition() {
         return position;
     }
 
     /**
      * Moves relative to the camera's orientation
      */
-    public void move(FloatVector v){
+    public void move(FloatVector v) {
         move(v.getX(), v.getY(), v.getZ());
     }
 
     /**
      * Moves relative to the camera's orientation
      */
-    public void move(float x, float y, float z){
+    public void move(float x, float y, float z) {
         FloatVector right = getRight();
         float rx = right.getX();
         float ry = right.getY();
@@ -122,12 +122,12 @@ public class Camera {
         calculateTranslationMatrix();
     }
 
-    public void moveAbsolute(FloatVector v){
+    public void moveAbsolute(FloatVector v) {
         position = position.add(v);
         calculateTranslationMatrix();
     }
 
-    public void moveAbsolute(float x, float y, float z){
+    public void moveAbsolute(float x, float y, float z) {
         moveAbsolute(new FloatVector(x, y, z));
     }
 }

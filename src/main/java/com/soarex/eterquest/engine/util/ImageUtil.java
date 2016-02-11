@@ -17,28 +17,28 @@ public abstract class ImageUtil {
     static{
         try{
             fromLocal();
-        }catch(Exception e){}
+        }catch(Exception e) {}
     }
 
-    public static void fromLocal(){
+    public static void fromLocal() {
         fromURL("file:///" + System.getProperty("user.dir").replace("\\", "/"));
     }
 
-    public static void fromLocalImages(){
+    public static void fromLocalImages() {
         fromURL("file:///" + System.getProperty("user.dir").replace("\\", "/") + "/images/");
     }
 
-    public static void fromURL(String url){
+    public static void fromURL(String url) {
         prefix = url + (url.endsWith("/") ? "" : "/");
     }
 
-    public static Image retrieve(String file){
-        if(!loadedImages.containsKey(file)){
+    public static Image retrieve(String file) {
+        if (!loadedImages.containsKey(file)) {
             try{
                 URL url = new URL(prefix + file);
                 Image image = ImageIO.read(url);
                 loadedImages.put(file, image);
-            }catch(Exception e){
+            }catch(Exception e) {
                 System.err.println("Path: " + prefix + file);
                 e.printStackTrace();
                 return null;

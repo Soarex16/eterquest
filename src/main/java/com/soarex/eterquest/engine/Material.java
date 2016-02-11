@@ -13,58 +13,58 @@ public class Material {
     private Texture texture;
     private FloatVector tint;
 
-    public Material(){
+    public Material() {
         this.texture = null;
-        this.tint = new FloatVector(1f, 1f, 1f);
+        this.tint = new FloatVector(1F, 1F, 1F);
     }
 
-    public Material(Texture texture){
+    public Material(Texture texture) {
         this.texture = texture;
-        this.tint = new FloatVector(1f, 1f, 1f);
+        this.tint = new FloatVector(1F, 1F, 1F);
     }
 
-    public Material(Texture texture, FloatVector tint){
+    public Material(Texture texture, FloatVector tint) {
         this.texture = texture;
         this.tint = tint;
     }
 
-    public Material(Texture texture, float red, float green, float blue){
+    public Material(Texture texture, float red, float green, float blue) {
         this(texture, new FloatVector(red, green, blue));
     }
 
-    public Material(Color tint){
+    public Material(Color tint) {
         this.tint = GraphicsUtil.toVector(tint);
         this.texture = null;
     }
 
-    public Material(FloatVector tint){
+    public Material(FloatVector tint) {
         this.texture = null;
         this.tint = tint;
     }
 
-    public Material(float red, float green, float blue){
+    public Material(float red, float green, float blue) {
         this(new FloatVector(red, green, blue));
     }
 
-    public void bindTexture(){
-        if(texture == null)
+    public void bindTexture() {
+        if (texture == null)
             return;
         texture.bind();
     }
 
-    public Texture getTexture(){
+    public Texture getTexture() {
         return texture;
     }
 
-    public void setTexture(Texture texture){
+    public void setTexture(Texture texture) {
         this.texture = texture;
     }
 
-    public FloatVector getTint(){
+    public FloatVector getTint() {
         return tint;
     }
 
-    public void setTint(FloatVector tint){
+    public void setTint(FloatVector tint) {
         this.tint = tint;
     }
 

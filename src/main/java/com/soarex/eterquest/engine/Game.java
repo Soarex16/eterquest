@@ -35,6 +35,7 @@ public class Game {
     public static final long FRAME_TIME = (long)(1D / (double)MAX_FPS * 1000000000D);
     public static final float MOVEMENT_SPEED = 0.025F;
     public static final float ROTATION_SPEED = 0.002F;
+    private static final int FPS_CAP = 120;
 
     private Set<Object3D> objects;
 
@@ -60,10 +61,12 @@ public class Game {
     private void initGL() {
         Display.setTitle(TITLE);
         try{
-            width = DEFAULT_WIDTH;
-            height = DEFAULT_HEIGHT;
+            DisplayMode desktopMode = Display.getDesktopDisplayMode();
+            Display.setResizable(true);
+            width = desktopMode.getWidth();
+            height = desktopMode.getHeight();
             aspectRatio = (float)width / (float)height;
-            Display.setDisplayMode(new DisplayMode(width, height));
+            Display.setDisplayMode(desktopMode);
             Display.create();
             Keyboard.create();
             Mouse.create();
@@ -184,6 +187,7 @@ public class Game {
         for (Object3D object : objects)
             object.render();
         Display.update();
+        Display.sync(FPS_CAP);
     }
 
     public static Camera getCamera() {
